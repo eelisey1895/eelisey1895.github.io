@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Upload Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .upload-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        .upload-container input[type="file"] {
+            margin: 1rem 0;
+        }
+
+        .gallery {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .gallery img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Photo Upload Site</h1>
+    </header>
+    <main>
+        <div class="upload-container">
+            <h2>Upload Your Photo</h2>
+            <input type="file" id="photoInput" accept="image/*">
+            <button onclick="uploadPhoto()">Upload</button>
+        </div>
+
+        <div class="gallery" id="gallery"></div>
+    </main>
+
+    <script>
+        function uploadPhoto() {
+            const photoInput = document.getElementById('photoInput');
+            const gallery = document.getElementById('gallery');
+
+            if (photoInput.files.length > 0) {
+                const file = photoInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    gallery.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+                photoInput.value = ''; // Reset the input
+            } else {
+                alert('Please select a photo to upload.');
+            }
+        }
+    </script>
+</body>
+</html>
